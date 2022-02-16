@@ -3,6 +3,7 @@ package com.r3d1r4ph.calculatoronjetpackcompose
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -13,6 +14,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -21,6 +23,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.r3d1r4ph.calculatoronjetpackcompose.ui.theme.CalculatorOnJetpackComposeTheme
+import me.nikhilchaudhari.library.neumorphic
+import me.nikhilchaudhari.library.shapes.Punched
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,9 +58,9 @@ fun Calculator() {
                 modifier = Modifier.height(24.dp)
             )
             NumPanel()
-            Spacer(
-                modifier = Modifier.height(20.dp)
-            )
+//            Spacer(
+//                modifier = Modifier.height(20.dp)
+//            )
             NumPad()
         }
     }
@@ -99,131 +103,147 @@ fun NumPad() {
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            WhiteButton(text = "AC")
-            WhiteButton(text = "+/-")
-            WhiteButton(text = "%")
-            BlueButton(text = "/")
+            Box(modifier = Modifier.weight(1f)) {
+                WhiteButton(text = "AC")
+            }
+            Spacer(modifier = Modifier.weight(0.2f))
+            Box(modifier = Modifier.weight(1f)) {
+                WhiteButton(text = "+/-")
+            }
+            Spacer(modifier = Modifier.weight(0.2f))
+            Box(modifier = Modifier.weight(1f)) {
+                WhiteButton(text = "%")
+            }
+            Spacer(modifier = Modifier.weight(0.2f))
+            Box(modifier = Modifier.weight(1f)) {
+                BlueButton(text = "/")
+            }
         }
 
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            WhiteButton(text = "7")
-            WhiteButton(text = "8")
-            WhiteButton(text = "9")
-            BlueButton(text = "X")
+            Box(modifier = Modifier.weight(1f)) {
+                WhiteButton(text = "7")
+            }
+            Spacer(modifier = Modifier.weight(0.2f))
+            Box(modifier = Modifier.weight(1f)) {
+                WhiteButton(text = "8")
+            }
+            Spacer(modifier = Modifier.weight(0.2f))
+            Box(modifier = Modifier.weight(1f)) {
+                WhiteButton(text = "9")
+            }
+            Spacer(modifier = Modifier.weight(0.2f))
+            Box(modifier = Modifier.weight(1f)) {
+                BlueButton(text = "X")
+            }
         }
 
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            WhiteButton(text = "4")
-            WhiteButton(text = "5")
-            WhiteButton(text = "6")
-            BlueButton(text = "-")
+            Box(modifier = Modifier.weight(1f)) {
+                WhiteButton(text = "4")
+            }
+            Spacer(modifier = Modifier.weight(0.2f))
+            Box(modifier = Modifier.weight(1f)) {
+                WhiteButton(text = "5")
+            }
+            Spacer(modifier = Modifier.weight(0.2f))
+            Box(modifier = Modifier.weight(1f)) {
+                WhiteButton(text = "6")
+            }
+            Spacer(modifier = Modifier.weight(0.2f))
+            Box(modifier = Modifier.weight(1f)) {
+                BlueButton(text = "-")
+            }
         }
 
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            WhiteButton(text = "1")
-            WhiteButton(text = "2")
-            WhiteButton(text = "3")
-            BlueButton(text = "+")
+            Box(modifier = Modifier.weight(1f)) {
+                WhiteButton(text = "1")
+            }
+            Spacer(modifier = Modifier.weight(0.2f))
+            Box(modifier = Modifier.weight(1f)) {
+                WhiteButton(text = "2")
+            }
+            Spacer(modifier = Modifier.weight(0.2f))
+            Box(modifier = Modifier.weight(1f)) {
+                WhiteButton(text = "3")
+            }
+            Spacer(modifier = Modifier.weight(0.2f))
+            Box(modifier = Modifier.weight(1f)) {
+                BlueButton(text = "+")
+            }
         }
 
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            WideWhiteButton(text = "0")
-            WhiteButton(text = ",")
-            BlueButton(text = "=")
+            Box(modifier = Modifier.weight(2.2f)) {
+                WideWhiteButton(text = "0")
+            }
+            Spacer(modifier = Modifier.weight(0.2f))
+            Box(modifier = Modifier.weight(1f)) {
+                WhiteButton(text = ",")
+            }
+            Spacer(modifier = Modifier.weight(0.2f))
+            Box(modifier = Modifier.weight(1f)) {
+                BlueButton(text = "=")
+            }
         }
     }
 }
 
 @Composable
 fun WhiteButton(text: String) {
-    Button(
-        onClick = { /*TODO*/ },
-        colors = ButtonDefaults.buttonColors(
-            backgroundColor = colorResource(id = R.color.white_bg)
-        ),
-        modifier = Modifier
-            .size(80.dp),
-        shape = RoundedCornerShape(20.dp),
-        elevation = ButtonDefaults.elevation(
-            defaultElevation = 10.dp,
-            pressedElevation = 10.dp,
-            disabledElevation = 0.dp
-        )
-    ) {
-        Text(
-            text = text,
-            style = TextStyle(
-                fontSize = 29.sp,
-                fontWeight = FontWeight.W700,
-                color = colorResource(id = R.color.dark_blue)
-            )
-        )
-    }
+    NeuButton(isWhite = true, isWide = false, text = text)
 }
 
 @Composable
 fun WideWhiteButton(text: String) {
-    Button(
-        onClick = { /*TODO*/ },
-        colors = ButtonDefaults.buttonColors(
-            backgroundColor = colorResource(id = R.color.white_bg)
-        ),
-        modifier = Modifier
-            .size(
-                height = 80.dp,
-                width = 168.dp
-            ),
-        shape = RoundedCornerShape(20.dp),
-        elevation = ButtonDefaults.elevation(
-            defaultElevation = 10.dp,
-            pressedElevation = 10.dp,
-            disabledElevation = 0.dp
-        )
-    ) {
-        Text(
-            text = text,
-            style = TextStyle(
-                fontSize = 29.sp,
-                fontWeight = FontWeight.W700,
-                color = colorResource(id = R.color.dark_blue)
-            )
-        )
-    }
+    NeuButton(isWhite = true, isWide = true, text = text)
 }
 
 @Composable
 fun BlueButton(text: String) {
+    NeuButton(isWhite = false, isWide = false, text = text)
+}
+
+@Composable
+fun NeuButton(isWhite: Boolean, isWide: Boolean, text: String) {
     Button(
         onClick = { /*TODO*/ },
         colors = ButtonDefaults.buttonColors(
-            backgroundColor = colorResource(id = R.color.dark_blue)
+            backgroundColor = colorResource(
+                id = if (isWhite) R.color.white_bg else R.color.dark_blue
+            )
         ),
-        modifier = Modifier.size(80.dp),
-        shape = RoundedCornerShape(20.dp),
-        elevation = ButtonDefaults.elevation(
-            defaultElevation = 10.dp,
-            pressedElevation = 10.dp,
-            disabledElevation = 0.dp
-        )
+        border = BorderStroke(0.dp, Color.White),
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(height = 80.dp)
+            .neumorphic(
+                neuShape = Punched.Rounded(radius = 20.dp),
+                elevation = 10.dp
+            ),
+        shape = RoundedCornerShape(20.dp)
     ) {
         Text(
             text = text,
             style = TextStyle(
                 fontSize = 29.sp,
                 fontWeight = FontWeight.W700,
-                color = colorResource(id = R.color.white)
+                color = colorResource(
+                    id = if (isWhite) R.color.dark_blue else R.color.white
+                )
             )
         )
     }

@@ -12,18 +12,25 @@ import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.r3d1r4ph.calculatoronjetpackcompose.ui.theme.CalculatorOnJetpackComposeTheme
 import me.nikhilchaudhari.library.neumorphic
+import me.nikhilchaudhari.library.shapes.Pressed
 import me.nikhilchaudhari.library.shapes.Punched
 
 class MainActivity : ComponentActivity() {
@@ -58,9 +65,9 @@ fun Calculator() {
                 modifier = Modifier.height(24.dp)
             )
             NumPanel()
-//            Spacer(
-//                modifier = Modifier.height(20.dp)
-//            )
+            Spacer(
+                modifier = Modifier.height(10.dp)
+            )
             NumPad()
         }
     }
@@ -72,7 +79,8 @@ fun Label() {
         text = "Calculator",
         style = TextStyle(
             fontSize = 28.sp,
-            fontWeight = FontWeight.W500,
+            fontStyle = FontStyle.Normal,
+            fontWeight = FontWeight.W700,
             color = colorResource(id = R.color.heavy_black)
         )
     )
@@ -80,18 +88,59 @@ fun Label() {
 
 @Composable
 fun NumPanel() {
-    Image(
-        painter = painterResource(id = R.drawable.bg_panel),
-        contentDescription = "panel",
+    Box(
         modifier = Modifier
-            .fillMaxWidth()
-            .shadow(
-                elevation = 2.dp,
-                shape = RoundedCornerShape(10.dp),
-                clip = true
+            .fillMaxWidth(),
+        contentAlignment = Alignment.Center
+    ) {
+        Image(
+            painter = painterResource(id = R.drawable.bg_panel),
+            contentDescription = "panel",
+            modifier = Modifier
+                .fillMaxWidth()
+                .clip(shape = RoundedCornerShape(10.dp))
+                .neumorphic(
+                    neuShape = Pressed.Rounded(10.dp),
+                    elevation = 1.dp,
+                    lightShadowColor = Color.DarkGray,
+                    darkShadowColor = Color.DarkGray,
+                    strokeWidth = 1.dp
+                )
+        )
+        Box(
+            contentAlignment = Alignment.CenterEnd
+        ) {
+            Text(
+                text = "8888888888",
+                fontFamily = FontFamily(
+                    Font(
+                        R.font.digital_7_mono,
+                        FontWeight.Normal
+                    )
+                ),
+                color = colorResource(id = R.color.heavy_black),
+                fontSize = 60.sp,
+                modifier = Modifier
+                    .alpha(0.08f),
+                textAlign = TextAlign.End
             )
-    )
+            Text(
+                text = "=8,8888",
+                fontFamily = FontFamily(
+                    Font(
+                        R.font.digital_7_mono,
+                        FontWeight.Normal
+                    )
+                ),
+                color = colorResource(id = R.color.heavy_black),
+                fontSize = 60.sp,
+                textAlign = TextAlign.End
+            )
+        }
+    }
 }
+
+
 
 @Composable
 fun NumPad() {
@@ -116,7 +165,7 @@ fun NumPad() {
             }
             Spacer(modifier = Modifier.weight(0.2f))
             Box(modifier = Modifier.weight(1f)) {
-                BlueButton(text = "/")
+                BlueButton(text = "÷")
             }
         }
 

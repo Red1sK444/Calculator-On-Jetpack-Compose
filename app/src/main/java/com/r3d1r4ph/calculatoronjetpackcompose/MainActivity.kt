@@ -12,6 +12,8 @@ import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -28,6 +30,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.LiveData
 import com.r3d1r4ph.calculatoronjetpackcompose.ui.theme.CalculatorOnJetpackComposeTheme
 import me.nikhilchaudhari.library.neumorphic
 import me.nikhilchaudhari.library.shapes.Pressed
@@ -38,7 +41,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             CalculatorOnJetpackComposeTheme {
-                Calculator()
+                CalculatorScreen()
             }
         }
     }
@@ -46,7 +49,12 @@ class MainActivity : ComponentActivity() {
 
 @Preview
 @Composable
-fun Calculator() {
+fun CalculatorPreview() {
+    CalculatorScreen()
+}
+
+@Composable
+fun CalculatorScreen(viewModel: MainViewModel = MainViewModel()) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -64,11 +72,11 @@ fun Calculator() {
             Spacer(
                 modifier = Modifier.height(24.dp)
             )
-            NumPanel()
+            NumPanel(viewModel.padText)
             Spacer(
                 modifier = Modifier.height(10.dp)
             )
-            NumPad()
+            NumPad { symbol -> viewModel.clickOnNumPad(symbol) }
         }
     }
 }
@@ -87,7 +95,8 @@ fun Label() {
 }
 
 @Composable
-fun NumPanel() {
+fun NumPanel(padTextLiveData: LiveData<String>) {
+    val padText by padTextLiveData.observeAsState("")
     Box(
         modifier = Modifier
             .fillMaxWidth(),
@@ -125,7 +134,7 @@ fun NumPanel() {
                 textAlign = TextAlign.End
             )
             Text(
-                text = "=8,8888",
+                text = padText,
                 fontFamily = FontFamily(
                     Font(
                         R.font.digital_7_mono,
@@ -143,7 +152,7 @@ fun NumPanel() {
 
 
 @Composable
-fun NumPad() {
+fun NumPad(onClick: (String) -> Unit) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.SpaceEvenly
@@ -153,19 +162,19 @@ fun NumPad() {
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Box(modifier = Modifier.weight(1f)) {
-                WhiteButton(text = "AC")
+                WhiteButton(text = "AC", onClick = onClick)
             }
             Spacer(modifier = Modifier.weight(0.2f))
             Box(modifier = Modifier.weight(1f)) {
-                WhiteButton(text = "+/-")
+                WhiteButton(text = "+/-", onClick = onClick)
             }
             Spacer(modifier = Modifier.weight(0.2f))
             Box(modifier = Modifier.weight(1f)) {
-                WhiteButton(text = "%")
+                WhiteButton(text = "%", onClick = onClick)
             }
             Spacer(modifier = Modifier.weight(0.2f))
             Box(modifier = Modifier.weight(1f)) {
-                BlueButton(text = "÷")
+                BlueButton(text = "÷", onClick = onClick)
             }
         }
 
@@ -174,19 +183,19 @@ fun NumPad() {
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Box(modifier = Modifier.weight(1f)) {
-                WhiteButton(text = "7")
+                WhiteButton(text = "7", onClick = onClick)
             }
             Spacer(modifier = Modifier.weight(0.2f))
             Box(modifier = Modifier.weight(1f)) {
-                WhiteButton(text = "8")
+                WhiteButton(text = "8", onClick = onClick)
             }
             Spacer(modifier = Modifier.weight(0.2f))
             Box(modifier = Modifier.weight(1f)) {
-                WhiteButton(text = "9")
+                WhiteButton(text = "9", onClick = onClick)
             }
             Spacer(modifier = Modifier.weight(0.2f))
             Box(modifier = Modifier.weight(1f)) {
-                BlueButton(text = "X")
+                BlueButton(text = "X", onClick = onClick)
             }
         }
 
@@ -195,19 +204,19 @@ fun NumPad() {
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Box(modifier = Modifier.weight(1f)) {
-                WhiteButton(text = "4")
+                WhiteButton(text = "4", onClick = onClick)
             }
             Spacer(modifier = Modifier.weight(0.2f))
             Box(modifier = Modifier.weight(1f)) {
-                WhiteButton(text = "5")
+                WhiteButton(text = "5", onClick = onClick)
             }
             Spacer(modifier = Modifier.weight(0.2f))
             Box(modifier = Modifier.weight(1f)) {
-                WhiteButton(text = "6")
+                WhiteButton(text = "6", onClick = onClick)
             }
             Spacer(modifier = Modifier.weight(0.2f))
             Box(modifier = Modifier.weight(1f)) {
-                BlueButton(text = "-")
+                BlueButton(text = "-", onClick = onClick)
             }
         }
 
@@ -216,19 +225,19 @@ fun NumPad() {
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Box(modifier = Modifier.weight(1f)) {
-                WhiteButton(text = "1")
+                WhiteButton(text = "1", onClick = onClick)
             }
             Spacer(modifier = Modifier.weight(0.2f))
             Box(modifier = Modifier.weight(1f)) {
-                WhiteButton(text = "2")
+                WhiteButton(text = "2", onClick = onClick)
             }
             Spacer(modifier = Modifier.weight(0.2f))
             Box(modifier = Modifier.weight(1f)) {
-                WhiteButton(text = "3")
+                WhiteButton(text = "3", onClick = onClick)
             }
             Spacer(modifier = Modifier.weight(0.2f))
             Box(modifier = Modifier.weight(1f)) {
-                BlueButton(text = "+")
+                BlueButton(text = "+", onClick = onClick)
             }
         }
 
@@ -237,39 +246,47 @@ fun NumPad() {
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Box(modifier = Modifier.weight(2.2f)) {
-                WideWhiteButton(text = "0")
+                WideWhiteButton(text = "0", onClick = onClick)
             }
             Spacer(modifier = Modifier.weight(0.2f))
             Box(modifier = Modifier.weight(1f)) {
-                WhiteButton(text = ",")
+                WhiteButton(text = ",", onClick = onClick)
             }
             Spacer(modifier = Modifier.weight(0.2f))
             Box(modifier = Modifier.weight(1f)) {
-                BlueButton(text = "=")
+                BlueButton(text = "=", onClick = onClick)
             }
         }
     }
 }
 
 @Composable
-fun WhiteButton(text: String) {
-    NeuButton(isWhite = true, isWide = false, text = text)
+fun WhiteButton(text: String,
+                onClick: (String) -> Unit) {
+    NeuButton(isWhite = true, isWide = false, text = text, onClick = onClick)
 }
 
 @Composable
-fun WideWhiteButton(text: String) {
-    NeuButton(isWhite = true, isWide = true, text = text)
+fun WideWhiteButton(text: String,
+                    onClick: (String) -> Unit) {
+    NeuButton(isWhite = true, isWide = true, text = text, onClick = onClick)
 }
 
 @Composable
-fun BlueButton(text: String) {
-    NeuButton(isWhite = false, isWide = false, text = text)
+fun BlueButton(text: String,
+               onClick: (String) -> Unit) {
+    NeuButton(isWhite = false, isWide = false, text = text, onClick = onClick)
 }
 
 @Composable
-fun NeuButton(isWhite: Boolean, isWide: Boolean, text: String) {
+fun NeuButton(
+    isWhite: Boolean,
+    isWide: Boolean,
+    text: String,
+    onClick: (String) -> Unit
+) {
     Button(
-        onClick = { /*TODO*/ },
+        onClick = { onClick.invoke(text) },
         colors = ButtonDefaults.buttonColors(
             backgroundColor = colorResource(
                 id = if (isWhite) R.color.white_bg else R.color.dark_blue

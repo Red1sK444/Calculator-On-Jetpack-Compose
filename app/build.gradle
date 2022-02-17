@@ -60,4 +60,8 @@ dependencies {
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
 
     implementation 'me.nikhilchaudhari:composeNeumorphism:1.0.0-alpha02'
+
+    //viewModels
+    implementation 'androidx.activity:activity-ktx:1.4.0'
+    implementation "androidx.compose.runtime:runtime-livedata:$compose_version"
 }

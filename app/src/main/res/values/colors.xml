@@ -10,4 +10,5 @@
     <color name="white_bg">#F1F3F6</color>
     <color name="heavy_black">#373A37</color>
     <color name="dark_blue">#3A4E89</color>
+    <color name="red">#C10000</color>
 </resources>

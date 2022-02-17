@@ -1,8 +1,8 @@
-package com.r3d1r4ph.calculatoronjetpackcompose
+package com.r3d1r4ph.calculatoronjetpackcompose.model
 
 class CalculatorProcessing {
     private companion object {
-        const val DISPLAY_NUMBERS_COUNT = 10
+        const val DISPLAY_NUMBERS_COUNT = 14
         const val DISPLAY_ADD_NUMBER = DISPLAY_NUMBERS_COUNT - 2
         const val DISPLAY_CONCLUSION = DISPLAY_NUMBERS_COUNT - 3
         const val DOT = '.'
@@ -51,14 +51,18 @@ class CalculatorProcessing {
 
     private fun lastCheck(): String {
         return if (afterOp.length + last.length > DISPLAY_NUMBERS_COUNT) {
-            "$DOT$DOT${(afterOp + last).substring((afterOp + last).length - DISPLAY_ADD_NUMBER,
-                (afterOp + last).length)}"
+            "$DOT$DOT${
+                (afterOp + last).substring(
+                    (afterOp + last).length - DISPLAY_ADD_NUMBER,
+                    (afterOp + last).length
+                )
+            }"
         } else {
             "$afterOp$last"
         }
     }
 
-    private fun addNumber(num: String):String {
+    private fun addNumber(num: String): String {
         if (operation == null) {
             if (!newCircle) {
                 newCircle = true
@@ -67,23 +71,21 @@ class CalculatorProcessing {
 
             if (first == ZERO.toString()) {
                 first = num
-            }
-            else if (!(first == MINUS.toString() && num == ZERO.toString())) {
+            } else if (!(first == MINUS.toString() && num == ZERO.toString())) {
                 first += num
             }
             return firstCheck()
         } else {
             if (last == ZERO.toString()) {
                 last = num
-            }
-            else if (!(last == MINUS.toString() && num == ZERO.toString())) {
+            } else if (!(last == MINUS.toString() && num == ZERO.toString())) {
                 last += num
             }
             return lastCheck()
         }
     }
 
-    fun clickOnDigit(num: String):String {
+    fun clickOnDigit(num: String): String {
         return addNumber(num)
     }
 
@@ -93,7 +95,7 @@ class CalculatorProcessing {
                 MULTIPLICATION -> Operations.MULTIPLICATION
                 DIVIDE -> Operations.DIVIDE
                 MINUS.toString() -> Operations.MINUS
-                else ->  Operations.PLUS
+                else -> Operations.PLUS
             }
 
             afterOp = first
@@ -111,16 +113,13 @@ class CalculatorProcessing {
         return operationProcessing(oper)
     }
 
-    fun processingAC(padText: String): String {
-        if (padText.isNotEmpty()) {
-            first = EMPTY
-            last = EMPTY
-            afterOp = EMPTY
-            operation = null
-            newCircle = true
-            return ZERO.toString()
-        }
-        return padText
+    fun processingAC(): String {
+        first = EMPTY
+        last = EMPTY
+        afterOp = EMPTY
+        operation = null
+        newCircle = true
+        return ZERO.toString()
     }
 
     private fun commaInput(num: String): String {
@@ -184,7 +183,8 @@ class CalculatorProcessing {
         val padText: String
         var conclusion = concl
         if (conclusion[conclusion.length - 1] == ZERO
-            && conclusion[conclusion.length - 2] == DOT) {
+            && conclusion[conclusion.length - 2] == DOT
+        ) {
             conclusion = conclusion.substring(0, conclusion.length - 2)
         }
         if (conclusion != "$MINUS$ZERO") {
@@ -200,8 +200,7 @@ class CalculatorProcessing {
                 } else {
                     "$EQUALITY${pointToComma(conclusion.substring(0, DISPLAY_CONCLUSION))}$DOT$DOT"
                 }
-            }
-            else {
+            } else {
                 padText = "$EQUALITY${pointToComma(conclusion)}"
             }
         } else {
@@ -211,8 +210,7 @@ class CalculatorProcessing {
         if (l != 0.0) {
             first = pointToComma(conclusion)
             newCircle = false
-        }
-        else  {
+        } else {
             first = EMPTY
             newCircle = true
         }
@@ -236,7 +234,7 @@ class CalculatorProcessing {
         } else {
             if (last.contains(MINUS)) {
                 last = last.drop(1)
-                when(operation) {
+                when (operation) {
                     Operations.PLUS -> operation = Operations.MINUS
                     Operations.MINUS -> operation = Operations.PLUS
                     else -> {
@@ -258,27 +256,28 @@ class CalculatorProcessing {
             if (operation == Operations.MULTIPLICATION || operation == Operations.DIVIDE) {
                 l /= 100
             } else {
-                l = l/100 * f
+                l = l / 100 * f
             }
 
             var conclusion = EMPTY
-            when(operation) {
-                Operations.PLUS->{
-                    conclusion = ((f + l)*toMultiplicate).toString()
+            when (operation) {
+                Operations.PLUS -> {
+                    conclusion = ((f + l) * toMultiplicate).toString()
                 }
-                Operations.MINUS->{
-                    conclusion = ((f - l)*toMultiplicate).toString()
+                Operations.MINUS -> {
+                    conclusion = ((f - l) * toMultiplicate).toString()
                 }
-                Operations.MULTIPLICATION->{
-                    conclusion = ((f * l)*toMultiplicate).toString()
+                Operations.MULTIPLICATION -> {
+                    conclusion = ((f * l) * toMultiplicate).toString()
                 }
-                Operations.DIVIDE->{
+                Operations.DIVIDE -> {
                     conclusion = if (l == 0.0) {
                         DIVIDE_EXCEPTION
                     } else {
                         ((f / l) * toMultiplicate).toString()
                     }
                 }
+                else -> {}
             }
 
             return processingConclusion(conclusion, l)
@@ -307,6 +306,7 @@ class CalculatorProcessing {
                         (f / l).toString()
                     }
                 }
+                else -> {}
             }
 
             return processingConclusion(conclusion, l)

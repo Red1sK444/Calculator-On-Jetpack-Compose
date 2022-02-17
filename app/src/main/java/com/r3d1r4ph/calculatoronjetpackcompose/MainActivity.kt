@@ -21,6 +21,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -55,6 +56,20 @@ fun CalculatorPreview() {
 
 @Composable
 fun CalculatorScreen(viewModel: MainViewModel = MainViewModel()) {
+    val state by viewModel.padText.observeAsState()
+
+//state?.extract() ?: stringResource(id = R.string.zero)
+    CalculatorView(
+        viewModel.padText,
+        //numPanelText = state ?: stringResource(id = R.string.zero),
+        numPadOnClick = {
+            viewModel.clickOnNumPad(it)
+        }
+    )
+}
+
+@Composable
+fun CalculatorView(numPanelText: LiveData<Result>, numPadOnClick: (String) -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -72,11 +87,11 @@ fun CalculatorScreen(viewModel: MainViewModel = MainViewModel()) {
             Spacer(
                 modifier = Modifier.height(24.dp)
             )
-            NumPanel(viewModel.padText)
+            NumPanel(numPanelText)
             Spacer(
                 modifier = Modifier.height(10.dp)
             )
-            NumPad { symbol -> viewModel.clickOnNumPad(symbol) }
+            NumPad(numPadOnClick)
         }
     }
 }
@@ -95,8 +110,9 @@ fun Label() {
 }
 
 @Composable
-fun NumPanel(padTextLiveData: LiveData<String>) {
-    val padText by padTextLiveData.observeAsState("")
+fun NumPanel(numPanelText: LiveData<Result>) {
+    val text by numPanelText.observeAsState(initial = Result.Success("0"))
+
     Box(
         modifier = Modifier
             .fillMaxWidth(),
@@ -120,7 +136,7 @@ fun NumPanel(padTextLiveData: LiveData<String>) {
             contentAlignment = Alignment.CenterEnd
         ) {
             Text(
-                text = "8888888888",
+                text = stringResource(id = R.string.num_panel_hint),
                 fontFamily = FontFamily(
                     Font(
                         R.font.digital_7_mono,
@@ -134,21 +150,26 @@ fun NumPanel(padTextLiveData: LiveData<String>) {
                 textAlign = TextAlign.End
             )
             Text(
-                text = padText,
+                text = when (text) {
+                    is Result.Success -> text.extract().toString()
+                    is Result.Exception -> stringResource(id = text.extract() as Int)
+                },
                 fontFamily = FontFamily(
                     Font(
                         R.font.digital_7_mono,
                         FontWeight.Normal
                     )
                 ),
-                color = colorResource(id = R.color.heavy_black),
+                color = when (text) {
+                    is Result.Success -> colorResource(id = R.color.heavy_black)
+                    is Result.Exception -> colorResource(id = R.color.red)
+                },
                 fontSize = 60.sp,
                 textAlign = TextAlign.End
             )
         }
     }
 }
-
 
 
 @Composable
@@ -261,20 +282,26 @@ fun NumPad(onClick: (String) -> Unit) {
 }
 
 @Composable
-fun WhiteButton(text: String,
-                onClick: (String) -> Unit) {
+fun WhiteButton(
+    text: String,
+    onClick: (String) -> Unit
+) {
     NeuButton(isWhite = true, isWide = false, text = text, onClick = onClick)
 }
 
 @Composable
-fun WideWhiteButton(text: String,
-                    onClick: (String) -> Unit) {
+fun WideWhiteButton(
+    text: String,
+    onClick: (String) -> Unit
+) {
     NeuButton(isWhite = true, isWide = true, text = text, onClick = onClick)
 }
 
 @Composable
-fun BlueButton(text: String,
-               onClick: (String) -> Unit) {
+fun BlueButton(
+    text: String,
+    onClick: (String) -> Unit
+) {
     NeuButton(isWhite = false, isWide = false, text = text, onClick = onClick)
 }
 

@@ -2,7 +2,7 @@ package com.r3d1r4ph.calculatoronjetpackcompose.model
 
 class CalculatorProcessing {
     private companion object {
-        const val DISPLAY_NUMBERS_COUNT = 14
+        const val DISPLAY_NUMBERS_COUNT = 10
         const val DISPLAY_ADD_NUMBER = DISPLAY_NUMBERS_COUNT - 2
         const val DISPLAY_CONCLUSION = DISPLAY_NUMBERS_COUNT - 3
         const val DOT = '.'

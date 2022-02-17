@@ -1,8 +1,10 @@
-package com.r3d1r4ph.calculatoronjetpackcompose
+package com.r3d1r4ph.calculatoronjetpackcompose.calculator
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.r3d1r4ph.calculatoronjetpackcompose.R
+import com.r3d1r4ph.calculatoronjetpackcompose.utils.Result
 import com.r3d1r4ph.calculatoronjetpackcompose.model.CalculatorProcessing
 
 class MainViewModel : ViewModel() {
@@ -33,31 +35,25 @@ class MainViewModel : ViewModel() {
 
     private fun clickOnDigit(digit: String) {
         _padText.value = Result.Success(expression = calculator.clickOnDigit(digit))
-        //       _padText.value = calculator.clickOnDigit(digit)
     }
 
     private fun clickOnOperation(operation: String) {
         calculator.clickOnOperation(operation)
             ?.let {
                 _padText.value = Result.Success(expression = it)
-                // _padText.value = it
             }
     }
 
     private fun clickOnAC() {
         _padText.value = Result.Success(expression = calculator.processingAC())
     }
-//        _padText.value =
-//            calculator.processingAC(padText.value.toString())
 
     private fun clickOnComma() {
         calculator.processingComma()?.let { _padText.value = Result.Success(expression = it) }
-//        calculator.processingComma()?.let { _padText.value = it }
     }
 
     private fun clickOnPlusMinus() {
         _padText.value = Result.Success(expression = calculator.processingPlusMinus())
-//        _padText.value = calculator.processingPlusMinus()
     }
 
     private fun clickOnPercent() {
@@ -67,11 +63,6 @@ class MainViewModel : ViewModel() {
             } else {
                 Result.Success(expression = it)
             }
-//            _padText.value = if (it == DIVIDE_EXCEPTION) {
-//                "CAN'T DIVIDE"
-//            } else {
-//                it
-//            }
         }
     }
 
@@ -82,11 +73,6 @@ class MainViewModel : ViewModel() {
             } else {
                 Result.Success(expression = it)
             }
-//            _padText.value = if (it == DIVIDE_EXCEPTION) {
-//                "CAN'T DIVIDE"
-//            } else {
-//                it
-//            }
         }
     }
 }

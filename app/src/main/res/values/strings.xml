@@ -4,5 +4,6 @@
     <string name="num_panel_hint">8888888888</string>
     <string name="zero">0</string>
     <string name="error">Error</string>
+    <string name="ac">AC</string>
     <string name="empty" />
 </resources>

@@ -1,4 +1,4 @@
-package com.r3d1r4ph.calculatoronjetpackcompose
+package com.r3d1r4ph.calculatoronjetpackcompose.utils
 
 import android.content.Context
 import androidx.compose.runtime.Composable

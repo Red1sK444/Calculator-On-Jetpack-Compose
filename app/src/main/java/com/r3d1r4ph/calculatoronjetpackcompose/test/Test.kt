@@ -1,4 +1,4 @@
-package com.r3d1r4ph.calculatoronjetpackcompose
+package com.r3d1r4ph.calculatoronjetpackcompose.test
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.animateContentSize
@@ -19,6 +19,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.r3d1r4ph.calculatoronjetpackcompose.R
 import com.r3d1r4ph.calculatoronjetpackcompose.ui.theme.CalculatorOnJetpackComposeTheme
 
 class Test {

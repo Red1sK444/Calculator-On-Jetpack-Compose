@@ -11,7 +11,7 @@ import com.r3d1r4ph.calculatoronjetpackcompose.calculator.components.Label
 import com.r3d1r4ph.calculatoronjetpackcompose.utils.Result
 
 @Composable
-fun CalculatorView(numPanelText: LiveData<Result>, numPadOnClick: (String) -> Unit) {
+fun CalculatorView(numPanelLiveData: LiveData<Result>, numPadOnClick: (String) -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -29,7 +29,7 @@ fun CalculatorView(numPanelText: LiveData<Result>, numPadOnClick: (String) -> Un
             Spacer(
                 modifier = Modifier.height(24.dp)
             )
-            NumPanel(numPanelText)
+            NumPanel(numPanelLiveData)
             Spacer(
                 modifier = Modifier.height(10.dp)
             )

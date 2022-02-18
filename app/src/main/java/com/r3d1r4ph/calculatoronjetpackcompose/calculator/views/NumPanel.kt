@@ -14,7 +14,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -26,9 +25,7 @@ import me.nikhilchaudhari.library.neumorphic
 import me.nikhilchaudhari.library.shapes.Pressed
 
 @Composable
-fun NumPanel(numPanelText: LiveData<Result>) {
-    val text by numPanelText.observeAsState(initial = Result.Success("0"))
-
+fun NumPanel(numPanelLiveData: LiveData<Result>) {
     Box(
         modifier = Modifier
             .fillMaxWidth(),
@@ -58,12 +55,15 @@ fun NumPanel(numPanelText: LiveData<Result>) {
                     .alpha(0.08f),
                 style = MaterialTheme.typography.body2
             )
+
+            val textResult by numPanelLiveData.observeAsState(initial = Result.Success("0"))
+
             Text(
-                text = when (text) {
-                    is Result.Success -> text.extract().toString()
-                    is Result.Exception -> stringResource(id = text.extract() as Int)
+                text = when (textResult) {
+                    is Result.Success -> textResult.extract().toString()
+                    is Result.Exception -> stringResource(id = textResult.extract() as Int)
                 },
-                color = when (text) {
+                color = when (textResult) {
                     is Result.Success -> MaterialTheme.colors.secondary
                     is Result.Exception -> MaterialTheme.colors.error
                 },

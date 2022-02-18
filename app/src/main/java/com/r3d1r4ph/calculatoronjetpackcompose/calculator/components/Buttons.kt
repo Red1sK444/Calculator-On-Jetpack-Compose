@@ -38,7 +38,7 @@ fun NeuButton(
     onClick: (String) -> Unit
 ) {
     Button(
-        onClick = { onClick.invoke(text) },
+        onClick = { /*Log.d("MyLog", "pushed")*/ onClick.invoke(text) },
         colors = ButtonDefaults.buttonColors(
             backgroundColor = if (isWhite) MaterialTheme.colors.background else MaterialTheme.colors.primary
         ),

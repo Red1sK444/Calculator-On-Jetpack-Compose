@@ -8,7 +8,7 @@ import com.r3d1r4ph.calculatoronjetpackcompose.calculator.views.CalculatorView
 @Composable
 fun CalculatorScreen(viewModel: MainViewModel = MainViewModel()) {
     CalculatorView(
-        viewModel.padText,
+        numPanelLiveData = viewModel.padText,
         numPadOnClick = {
             viewModel.clickOnNumPad(it)
         }

@@ -11,7 +11,7 @@ class CalculatorProcessing {
         const val MINUS = '-'
         const val ZERO = '0'
         const val DIVIDE_EXCEPTION = "/0"
-        const val MULTIPLICATION = "×"
+        const val MULTIPLICATION = "X"
         const val DIVIDE = "÷"
         const val EQUALITY = '='
         const val EMPTY = ""

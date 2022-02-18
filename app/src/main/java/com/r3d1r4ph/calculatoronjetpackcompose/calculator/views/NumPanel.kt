@@ -53,7 +53,7 @@ fun NumPanel(numPanelText: LiveData<Result>) {
         ) {
             Text(
                 text = stringResource(id = R.string.num_panel_hint),
-                color = colorResource(id = R.color.heavy_black),
+                color = MaterialTheme.colors.secondary,
                 modifier = Modifier
                     .alpha(0.08f),
                 style = MaterialTheme.typography.body2
@@ -64,8 +64,8 @@ fun NumPanel(numPanelText: LiveData<Result>) {
                     is Result.Exception -> stringResource(id = text.extract() as Int)
                 },
                 color = when (text) {
-                    is Result.Success -> colorResource(id = R.color.heavy_black)
-                    is Result.Exception -> colorResource(id = R.color.red)
+                    is Result.Success -> MaterialTheme.colors.secondary
+                    is Result.Exception -> MaterialTheme.colors.error
                 },
                 maxLines = 1,
                 style = MaterialTheme.typography.body2

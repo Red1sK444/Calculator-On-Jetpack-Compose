@@ -1,4 +1,4 @@
-package com.r3d1r4ph.calculatoronjetpackcompose.calculator.views
+package com.r3d1r4ph.calculatoronjetpackcompose.calculator.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -11,9 +11,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
-import com.r3d1r4ph.calculatoronjetpackcompose.R
 import me.nikhilchaudhari.library.neumorphic
 import me.nikhilchaudhari.library.shapes.Punched
 
@@ -42,9 +40,7 @@ fun NeuButton(
     Button(
         onClick = { onClick.invoke(text) },
         colors = ButtonDefaults.buttonColors(
-            backgroundColor = colorResource(
-                id = if (isWhite) R.color.white_bg else R.color.dark_blue
-            )
+            backgroundColor = if (isWhite) MaterialTheme.colors.background else MaterialTheme.colors.primary
         ),
         border = BorderStroke(0.dp, Color.White),
         modifier = Modifier
@@ -59,9 +55,7 @@ fun NeuButton(
         Text(
             text = text,
             style = MaterialTheme.typography.h1,
-            color = colorResource(
-                id = if (isWhite) R.color.dark_blue else R.color.white
-            )
+            color = if (isWhite) MaterialTheme.colors.primary else Color.White
         )
     }
 }

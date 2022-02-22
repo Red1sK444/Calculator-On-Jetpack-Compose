@@ -59,7 +59,9 @@ dependencies {
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
 
+    //neumorphism
     implementation 'me.nikhilchaudhari:composeNeumorphism:1.0.0-alpha02'
+    implementation 'io.github.sridhar-sp:neumorphic:0.0.6'
 
     //viewModels
     implementation 'androidx.activity:activity-ktx:1.4.0'

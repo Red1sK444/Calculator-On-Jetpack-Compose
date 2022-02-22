@@ -3,6 +3,8 @@ package com.r3d1r4ph.calculatoronjetpackcompose.calculator.views
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import com.r3d1r4ph.calculatoronjetpackcompose.R
 import com.r3d1r4ph.calculatoronjetpackcompose.calculator.components.BlueButton
 import com.r3d1r4ph.calculatoronjetpackcompose.calculator.components.WhiteButton
 import com.r3d1r4ph.calculatoronjetpackcompose.calculator.models.NumPadButton
@@ -37,4 +39,34 @@ fun ButtonRow(
             BlueButton(text = bButton.symbol, onClick = onClick)
         }
     }
+}
+
+@Composable
+fun ButtonRowHolder(
+    symbol1: String,
+    symbol2: String,
+    symbol3: String,
+    symbol4: String,
+    isFirstButtonWide: Boolean,
+    onClick: (String) -> Unit
+) {
+    ButtonRow(
+        wButton1 = NumPadButton(
+            weight = if (!isFirstButtonWide) 1f else 2.2f,
+            symbol = symbol1
+        ),
+        wButton2 = NumPadButton(
+            weight = if (!isFirstButtonWide) 1f else 0f,
+            symbol = symbol2
+        ),
+        wButton3 = NumPadButton(
+            weight = 1f,
+            symbol = symbol3
+        ),
+        bButton = NumPadButton(
+            weight = 1f,
+            symbol = symbol4
+        ),
+        onClick = onClick
+    )
 }

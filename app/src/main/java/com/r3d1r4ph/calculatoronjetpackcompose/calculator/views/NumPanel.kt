@@ -18,6 +18,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.LiveData
+import com.gandiva.neumorphic.LightSource
+import com.gandiva.neumorphic.neu
+import com.gandiva.neumorphic.shape.Flat
+import com.gandiva.neumorphic.shape.RoundedCorner
 import com.r3d1r4ph.calculatoronjetpackcompose.R
 import com.r3d1r4ph.calculatoronjetpackcompose.utils.Result
 import com.r3d1r4ph.calculatoronjetpackcompose.utils.extract
@@ -37,12 +41,19 @@ fun NumPanel(numPanelLiveData: LiveData<Result>) {
             modifier = Modifier
                 .fillMaxWidth()
                 .clip(shape = RoundedCornerShape(10.dp))
-                .neumorphic(
-                    neuShape = Pressed.Rounded(10.dp),
-                    elevation = 1.dp,
+//                .neumorphic(
+//                    neuShape = Pressed.Rounded(10.dp),
+//                    elevation = 1.dp,
+//                    lightShadowColor = Color.DarkGray,
+//                    darkShadowColor = Color.DarkGray,
+//                    strokeWidth = 1.dp
+//                )
+                .neu(
                     lightShadowColor = Color.DarkGray,
                     darkShadowColor = Color.DarkGray,
-                    strokeWidth = 1.dp
+                    shadowElevation = 1.dp,
+                    lightSource = LightSource.RIGHT_BOTTOM,
+                    shape = com.gandiva.neumorphic.shape.Pressed(RoundedCorner(10.dp))
                 )
         )
         Box(

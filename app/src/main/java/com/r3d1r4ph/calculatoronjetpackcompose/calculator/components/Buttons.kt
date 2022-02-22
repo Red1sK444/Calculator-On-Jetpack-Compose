@@ -14,8 +14,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.gandiva.neumorphic.LightSource
 import com.gandiva.neumorphic.neu
-import me.nikhilchaudhari.library.neumorphic
-import me.nikhilchaudhari.library.shapes.Punched
+import com.gandiva.neumorphic.shape.Flat
+import com.gandiva.neumorphic.shape.RoundedCorner
 
 @Composable
 fun WhiteButton(
@@ -44,14 +44,24 @@ fun NeuButton(
         colors = ButtonDefaults.buttonColors(
             backgroundColor = if (isWhite) MaterialTheme.colors.background else MaterialTheme.colors.primary
         ),
-        border = BorderStroke(0.dp, Color.White),
+        border = BorderStroke(
+            0.dp,
+            if (isWhite) MaterialTheme.colors.background else MaterialTheme.colors.primary
+        ),
         modifier = Modifier
             .fillMaxWidth()
             .height(height = 80.dp)
-            .neumorphic(
-                neuShape = Punched.Rounded(radius = 20.dp),
-                elevation = 10.dp
+            .neu(
+                lightShadowColor = Color.White,
+                darkShadowColor = Color(0xFFA8B5C7),
+                shadowElevation = 4.dp,
+                lightSource = LightSource.LEFT_TOP,
+                shape = Flat(RoundedCorner(20.dp))
             ),
+//            .neumorphic(
+//                neuShape = Punched.Rounded(radius = 20.dp),
+//                elevation = 10.dp
+//            ),
         shape = RoundedCornerShape(20.dp)
     ) {
         Text(

@@ -20,13 +20,10 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.LiveData
 import com.gandiva.neumorphic.LightSource
 import com.gandiva.neumorphic.neu
-import com.gandiva.neumorphic.shape.Flat
 import com.gandiva.neumorphic.shape.RoundedCorner
 import com.r3d1r4ph.calculatoronjetpackcompose.R
 import com.r3d1r4ph.calculatoronjetpackcompose.utils.Result
 import com.r3d1r4ph.calculatoronjetpackcompose.utils.extract
-import me.nikhilchaudhari.library.neumorphic
-import me.nikhilchaudhari.library.shapes.Pressed
 
 @Composable
 fun NumPanel(numPanelLiveData: LiveData<Result>) {
@@ -41,13 +38,6 @@ fun NumPanel(numPanelLiveData: LiveData<Result>) {
             modifier = Modifier
                 .fillMaxWidth()
                 .clip(shape = RoundedCornerShape(10.dp))
-//                .neumorphic(
-//                    neuShape = Pressed.Rounded(10.dp),
-//                    elevation = 1.dp,
-//                    lightShadowColor = Color.DarkGray,
-//                    darkShadowColor = Color.DarkGray,
-//                    strokeWidth = 1.dp
-//                )
                 .neu(
                     lightShadowColor = Color.DarkGray,
                     darkShadowColor = Color.DarkGray,
@@ -72,7 +62,7 @@ fun NumPanel(numPanelLiveData: LiveData<Result>) {
             Text(
                 text = when (textResult) {
                     is Result.Success -> textResult.extract().toString()
-                    is Result.Exception -> stringResource(id = textResult.extract() as Int)
+                    is Result.Exception -> textResult.extract().toString()
                 },
                 color = when (textResult) {
                     is Result.Success -> MaterialTheme.colors.secondary

@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.LiveData
-import com.r3d1r4ph.calculatoronjetpackcompose.calculator.components.Label
+import com.r3d1r4ph.calculatoronjetpackcompose.ui.theme.components.Label
 import com.r3d1r4ph.calculatoronjetpackcompose.utils.Result
 
 @Composable

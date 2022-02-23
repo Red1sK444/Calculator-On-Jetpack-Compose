@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.r3d1r4ph.calculatoronjetpackcompose.R
 import com.r3d1r4ph.calculatoronjetpackcompose.model.CalculatorProcessing
+import com.r3d1r4ph.calculatoronjetpackcompose.model.NumPadButtons
 import com.r3d1r4ph.calculatoronjetpackcompose.utils.Result
 import kotlinx.coroutines.launch
 
@@ -22,10 +23,6 @@ class MainViewModel : ViewModel() {
     val padText: LiveData<Result>
         get() = _padText
 
-//    private val _text = MutableLiveData<String>()
-//    val text: LiveData<String>
-//        get() = _text
-
     fun clickOnNumPad(buttonSymbol: String) {
         Log.d("MyLog", "pushed")
         when {
@@ -39,12 +36,25 @@ class MainViewModel : ViewModel() {
             "%" -> clickOnPercent()
             "=" -> clickOnEquality()
         }
+//        when (NumPadButtons.valueOf(buttonSymbol)) {
+//            NumPadButtons.MINUS, NumPadButtons.MULTIPLY,
+//            NumPadButtons.DIVIDE, NumPadButtons.PLUS -> clickOnOperation(
+//                buttonSymbol
+//            )
+//            NumPadButtons.AC -> clickOnAC()
+//            NumPadButtons.COMMA -> clickOnComma()
+//            NumPadButtons.PLUS_MINUS -> clickOnPlusMinus()
+//            NumPadButtons.PERCENT -> clickOnPercent()
+//            NumPadButtons.EQUALITY -> clickOnEquality()
+//            else -> clickOnDigit(
+//                buttonSymbol
+//            )
+//        }
     }
 
     private fun clickOnDigit(digit: String) {
         viewModelScope.launch {
             _padText.value = Result.Success(expression = calculator.clickOnDigit(digit))
-//            _text.value = calculator.clickOnDigit(digit)
         }
     }
 
@@ -53,55 +63,41 @@ class MainViewModel : ViewModel() {
             calculator.clickOnOperation(operation)
                 ?.let {
                     _padText.value = Result.Success(expression = it)
-//                    _text.value = it
                 }
         }
     }
 
     private fun clickOnAC() {
         _padText.value = Result.Success(expression = calculator.processingAC())
-//        _text.value = calculator.processingAC()
     }
 
     private fun clickOnComma() {
         calculator.processingComma()?.let {
             _padText.value = Result.Success(expression = it)
-//            _text.value = it
         }
     }
 
     private fun clickOnPlusMinus() {
         _padText.value = Result.Success(expression = calculator.processingPlusMinus())
-//        _text.value = calculator.processingPlusMinus()
     }
 
     private fun clickOnPercent() {
         calculator.processingPercent()?.let {
             _padText.value = if (it == DIVIDE_EXCEPTION) {
-                Result.Exception(exceptionId = R.string.divide_exception)
+                Result.Exception(exception = ArithmeticException("CAN'T DIVIDE"))
             } else {
                 Result.Success(expression = it)
             }
-//            _text.value = if (it == DIVIDE_EXCEPTION) {
-//                "Cant divide"
-//            } else {
-//                it
-//            }
         }
     }
 
     private fun clickOnEquality() {
         calculator.processingEquality()?.let {
             _padText.value = if (it == DIVIDE_EXCEPTION) {
-                Result.Exception(exceptionId = R.string.divide_exception)
+                Result.Exception(exception = ArithmeticException("CAN'T DIVIDE"))
             } else {
                 Result.Success(expression = it)
             }
-//            _text.value = if (it == DIVIDE_EXCEPTION) {
-//                "Cant divide"
-//            } else {
-//                it
-//            }
         }
     }
 }

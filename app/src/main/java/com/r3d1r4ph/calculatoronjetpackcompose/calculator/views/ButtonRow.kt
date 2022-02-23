@@ -3,10 +3,8 @@ package com.r3d1r4ph.calculatoronjetpackcompose.calculator.views
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
-import com.r3d1r4ph.calculatoronjetpackcompose.R
-import com.r3d1r4ph.calculatoronjetpackcompose.calculator.components.BlueButton
-import com.r3d1r4ph.calculatoronjetpackcompose.calculator.components.WhiteButton
+import com.r3d1r4ph.calculatoronjetpackcompose.ui.theme.components.BlueButton
+import com.r3d1r4ph.calculatoronjetpackcompose.ui.theme.components.WhiteButton
 import com.r3d1r4ph.calculatoronjetpackcompose.calculator.models.NumPadButton
 
 @Composable

@@ -25,26 +25,6 @@ fun NumPad(onClick: (String) -> Unit) {
             onClick = onClick
         )
 
-//        ButtonRow(
-//            wButton1 = NumPadButton(
-//                weight = 1f,
-//                symbol = stringResource(id = R.string.ac)
-//            ),
-//            wButton2 = NumPadButton(
-//                weight = 1f,
-//                symbol = "+/-"
-//            ),
-//            wButton3 = NumPadButton(
-//                weight = 1f,
-//                symbol = "%"
-//            ),
-//            bButton = NumPadButton(
-//                weight = 1f,
-//                symbol = "÷"
-//            ),
-//            onClick = onClick
-//        )
-
         ButtonRowHolder(
             symbol1 = "7",
             symbol2 = "8",
@@ -53,26 +33,6 @@ fun NumPad(onClick: (String) -> Unit) {
             isFirstButtonWide = false,
             onClick = onClick
         )
-
-//        ButtonRow(
-//            wButton1 = NumPadButton(
-//                weight = 1f,
-//                symbol = "7"
-//            ),
-//            wButton2 = NumPadButton(
-//                weight = 1f,
-//                symbol = "8"
-//            ),
-//            wButton3 = NumPadButton(
-//                weight = 1f,
-//                symbol = "9"
-//            ),
-//            bButton = NumPadButton(
-//                weight = 1f,
-//                symbol = "X"
-//            ),
-//            onClick = onClick
-//        )
 
         ButtonRowHolder(
             symbol1 = "4",
@@ -83,26 +43,6 @@ fun NumPad(onClick: (String) -> Unit) {
             onClick = onClick
         )
 
-//        ButtonRow(
-//            wButton1 = NumPadButton(
-//                weight = 1f,
-//                symbol = "4"
-//            ),
-//            wButton2 = NumPadButton(
-//                weight = 1f,
-//                symbol = "5"
-//            ),
-//            wButton3 = NumPadButton(
-//                weight = 1f,
-//                symbol = "6"
-//            ),
-//            bButton = NumPadButton(
-//                weight = 1f,
-//                symbol = "-"
-//            ),
-//            onClick = onClick
-//        )
-
         ButtonRowHolder(
             symbol1 = "1",
             symbol2 = "2",
@@ -112,26 +52,6 @@ fun NumPad(onClick: (String) -> Unit) {
             onClick = onClick
         )
 
-//        ButtonRow(
-//            wButton1 = NumPadButton(
-//                weight = 1f,
-//                symbol = "1"
-//            ),
-//            wButton2 = NumPadButton(
-//                weight = 1f,
-//                symbol = "2"
-//            ),
-//            wButton3 = NumPadButton(
-//                weight = 1f,
-//                symbol = "3"
-//            ),
-//            bButton = NumPadButton(
-//                weight = 1f,
-//                symbol = "+"
-//            ),
-//            onClick = onClick
-//        )
-
         ButtonRowHolder(
             symbol1 = "0",
             symbol2 = stringResource(id = R.string.empty),
@@ -140,25 +60,5 @@ fun NumPad(onClick: (String) -> Unit) {
             isFirstButtonWide = true,
             onClick = onClick
         )
-
-//        ButtonRow(
-//            wButton1 = NumPadButton(
-//                weight = 2.2f,
-//                symbol = "0"
-//            ),
-//            wButton2 = NumPadButton(
-//                weight = 0f,
-//                symbol = stringResource(id = R.string.empty)
-//            ),
-//            wButton3 = NumPadButton(
-//                weight = 1f,
-//                symbol = ","
-//            ),
-//            bButton = NumPadButton(
-//                weight = 1f,
-//                symbol = "="
-//            ),
-//            onClick = onClick
-//        )
     }
 }

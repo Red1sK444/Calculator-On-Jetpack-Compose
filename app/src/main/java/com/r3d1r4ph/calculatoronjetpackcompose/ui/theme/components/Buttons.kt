@@ -1,4 +1,4 @@
-package com.r3d1r4ph.calculatoronjetpackcompose.calculator.components
+package com.r3d1r4ph.calculatoronjetpackcompose.ui.theme.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -58,10 +58,6 @@ fun NeuButton(
                 lightSource = LightSource.LEFT_TOP,
                 shape = Flat(RoundedCorner(20.dp))
             ),
-//            .neumorphic(
-//                neuShape = Punched.Rounded(radius = 20.dp),
-//                elevation = 10.dp
-//            ),
         shape = RoundedCornerShape(20.dp)
     ) {
         Text(

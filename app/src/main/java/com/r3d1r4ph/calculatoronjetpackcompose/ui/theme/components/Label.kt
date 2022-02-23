@@ -1,4 +1,4 @@
-package com.r3d1r4ph.calculatoronjetpackcompose.calculator.components
+package com.r3d1r4ph.calculatoronjetpackcompose.ui.theme.components
 
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text

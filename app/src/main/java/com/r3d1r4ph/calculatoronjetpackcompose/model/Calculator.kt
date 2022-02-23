@@ -63,27 +63,28 @@ class CalculatorProcessing {
     }
 
     private fun addNumber(num: String): String {
-        if (operation == null) {
+        return if (operation == null) {
             if (!newCircle) {
                 newCircle = true
                 first = EMPTY
             }
 
-            if (first == ZERO.toString()) {
-                first = num
-            } else if (!(first == MINUS.toString() && num == ZERO.toString())) {
-                first += num
-            }
-            return firstCheck()
+            first = addNumberCheck(first, num)
+            firstCheck()
         } else {
-            if (last == ZERO.toString()) {
-                last = num
-            } else if (!(last == MINUS.toString() && num == ZERO.toString())) {
-                last += num
-            }
-            return lastCheck()
+            last = addNumberCheck(last, num)
+            lastCheck()
         }
     }
+
+    private fun addNumberCheck(oldNumber: String, newSymbol: String) =
+        if (oldNumber == ZERO.toString()) {
+            newSymbol
+        } else if (!(oldNumber == MINUS.toString() && newSymbol == ZERO.toString())) {
+            oldNumber + newSymbol
+        } else {
+            oldNumber
+        }
 
     fun clickOnDigit(num: String): String {
         return addNumber(num)
@@ -187,25 +188,8 @@ class CalculatorProcessing {
         ) {
             conclusion = conclusion.substring(0, conclusion.length - 2)
         }
-        if (conclusion != "$MINUS$ZERO") {
-            if (conclusion.length > DISPLAY_NUMBERS_COUNT) {
-                padText = if (conclusion.contains(E)) {
 
-                    val indOfE = conclusion.indexOf(E)
-                    val partE = conclusion.substring(indOfE)
-                    val partELength = partE.length
-
-                    val firstPartOfPad = conclusion.substring(0, DISPLAY_CONCLUSION - partELength)
-                    "$EQUALITY${pointToComma(firstPartOfPad)}$DOT$DOT$partE"
-                } else {
-                    "$EQUALITY${pointToComma(conclusion.substring(0, DISPLAY_CONCLUSION))}$DOT$DOT"
-                }
-            } else {
-                padText = "$EQUALITY${pointToComma(conclusion)}"
-            }
-        } else {
-            padText = "$EQUALITY$ZERO"
-        }
+        padText = padTextFromConclusion(conclusion)
 
         if (l != 0.0) {
             first = pointToComma(conclusion)
@@ -219,6 +203,27 @@ class CalculatorProcessing {
         operation = null
         return padText
     }
+
+    private fun padTextFromConclusion(conclusion: String) =
+        if (conclusion != "$MINUS$ZERO") {
+            if (conclusion.length > DISPLAY_NUMBERS_COUNT) {
+                if (conclusion.contains(E)) {
+
+                    val indOfE = conclusion.indexOf(E)
+                    val partE = conclusion.substring(indOfE)
+                    val partELength = partE.length
+
+                    val firstPartOfPad = conclusion.substring(0, DISPLAY_CONCLUSION - partELength)
+                    "$EQUALITY${pointToComma(firstPartOfPad)}$DOT$DOT$partE"
+                } else {
+                    "$EQUALITY${pointToComma(conclusion.substring(0, DISPLAY_CONCLUSION))}$DOT$DOT"
+                }
+            } else {
+                "$EQUALITY${pointToComma(conclusion)}"
+            }
+        } else {
+            "$EQUALITY$ZERO"
+        }
 
     private fun preCounting(): Int {
         var toMultiplicate = 1

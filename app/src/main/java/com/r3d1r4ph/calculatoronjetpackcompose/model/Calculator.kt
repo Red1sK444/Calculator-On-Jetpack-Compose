@@ -1,5 +1,7 @@
 package com.r3d1r4ph.calculatoronjetpackcompose.model
 
+import com.r3d1r4ph.calculatoronjetpackcompose.calculator.models.NumPadButtons
+
 class CalculatorProcessing {
     private companion object {
         const val DISPLAY_NUMBERS_COUNT = 10
@@ -11,8 +13,6 @@ class CalculatorProcessing {
         const val MINUS = '-'
         const val ZERO = '0'
         const val DIVIDE_EXCEPTION = "/0"
-        const val MULTIPLICATION = "X"
-        const val DIVIDE = "÷"
         const val EQUALITY = '='
         const val EMPTY = ""
     }
@@ -90,12 +90,12 @@ class CalculatorProcessing {
         return addNumber(num)
     }
 
-    private fun operationProcessing(oper: String): String? {
+    private fun operationProcessing(oper: NumPadButtons): String? {
         if (first.isNotEmpty() && first != MINUS.toString() && last.isEmpty()) {
             operation = when (oper) {
-                MULTIPLICATION -> Operations.MULTIPLICATION
-                DIVIDE -> Operations.DIVIDE
-                MINUS.toString() -> Operations.MINUS
+                NumPadButtons.MULTIPLY -> Operations.MULTIPLICATION
+                NumPadButtons.DIVIDE -> Operations.DIVIDE
+                NumPadButtons.MINUS -> Operations.MINUS
                 else -> Operations.PLUS
             }
 
@@ -110,7 +110,7 @@ class CalculatorProcessing {
         return null
     }
 
-    fun clickOnOperation(oper: String): String? {
+    fun clickOnOperation(oper: NumPadButtons): String? {
         return operationProcessing(oper)
     }
 

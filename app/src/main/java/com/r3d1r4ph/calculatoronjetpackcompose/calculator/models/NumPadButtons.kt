@@ -1,4 +1,4 @@
-package com.r3d1r4ph.calculatoronjetpackcompose.model
+package com.r3d1r4ph.calculatoronjetpackcompose.calculator.models
 
 enum class NumPadButtons(val symbol: String) {
     AC("AC"),
@@ -19,5 +19,6 @@ enum class NumPadButtons(val symbol: String) {
     SIX("6"),
     SEVEN("7"),
     EIGHT("8"),
-    NINE("9")
+    NINE("9"),
+    EMPTY("")
 }

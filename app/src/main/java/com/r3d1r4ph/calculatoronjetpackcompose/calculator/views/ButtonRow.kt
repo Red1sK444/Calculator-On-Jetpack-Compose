@@ -6,6 +6,7 @@ import androidx.compose.ui.Modifier
 import com.r3d1r4ph.calculatoronjetpackcompose.ui.theme.components.BlueButton
 import com.r3d1r4ph.calculatoronjetpackcompose.ui.theme.components.WhiteButton
 import com.r3d1r4ph.calculatoronjetpackcompose.calculator.models.NumPadButton
+import com.r3d1r4ph.calculatoronjetpackcompose.calculator.models.NumPadButtons
 
 @Composable
 fun ButtonRow(
@@ -13,7 +14,7 @@ fun ButtonRow(
     wButton2: NumPadButton,
     wButton3: NumPadButton,
     bButton: NumPadButton,
-    onClick: (String) -> Unit
+    onClick: (NumPadButtons) -> Unit
 ) {
     Row(
         modifier = Modifier.fillMaxWidth(),
@@ -41,12 +42,12 @@ fun ButtonRow(
 
 @Composable
 fun ButtonRowHolder(
-    symbol1: String,
-    symbol2: String,
-    symbol3: String,
-    symbol4: String,
+    symbol1: NumPadButtons,
+    symbol2: NumPadButtons,
+    symbol3: NumPadButtons,
+    symbol4: NumPadButtons,
     isFirstButtonWide: Boolean,
-    onClick: (String) -> Unit
+    onClick: (NumPadButtons) -> Unit
 ) {
     ButtonRow(
         wButton1 = NumPadButton(

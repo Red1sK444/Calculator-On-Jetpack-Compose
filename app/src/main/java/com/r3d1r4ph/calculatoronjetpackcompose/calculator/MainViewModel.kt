@@ -4,17 +4,16 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.r3d1r4ph.calculatoronjetpackcompose.R
 import com.r3d1r4ph.calculatoronjetpackcompose.model.CalculatorProcessing
-import com.r3d1r4ph.calculatoronjetpackcompose.model.NumPadButtons
+import com.r3d1r4ph.calculatoronjetpackcompose.calculator.models.NumPadButtons
+import com.r3d1r4ph.calculatoronjetpackcompose.utils.CantDivideException
 import com.r3d1r4ph.calculatoronjetpackcompose.utils.Result
-import kotlinx.coroutines.launch
 
 class MainViewModel : ViewModel() {
 
     companion object {
         private const val DIVIDE_EXCEPTION = "=/0"
+        private const val DIVIDE_EXCEPTION_TO_SH0W = "CAN'T DIVIDE"
     }
 
     private val calculator = CalculatorProcessing()
@@ -23,48 +22,32 @@ class MainViewModel : ViewModel() {
     val padText: LiveData<Result>
         get() = _padText
 
-    fun clickOnNumPad(buttonSymbol: String) {
-        Log.d("MyLog", "pushed")
-        when {
-            Regex("[0-9]").matches(buttonSymbol) -> clickOnDigit(buttonSymbol)
-            Regex("[-X+÷]").matches(buttonSymbol) -> clickOnOperation(buttonSymbol)
+    fun clickOnNumPad(buttonSymbol: NumPadButtons) {
+        when (NumPadButtons.valueOf(buttonSymbol.toString())) {
+            NumPadButtons.AC -> clickOnAC()
+            NumPadButtons.COMMA -> clickOnComma()
+            NumPadButtons.PLUS_MINUS -> clickOnPlusMinus()
+            NumPadButtons.PERCENT -> clickOnPercent()
+            NumPadButtons.EQUALITY -> clickOnEquality()
+            NumPadButtons.MINUS, NumPadButtons.MULTIPLY,
+            NumPadButtons.DIVIDE, NumPadButtons.PLUS -> clickOnOperation(
+                buttonSymbol
+            )
+            else -> clickOnDigit(
+                buttonSymbol.symbol
+            )
         }
-        when (buttonSymbol) {
-            "AC" -> clickOnAC()
-            "," -> clickOnComma()
-            "+/-" -> clickOnPlusMinus()
-            "%" -> clickOnPercent()
-            "=" -> clickOnEquality()
-        }
-//        when (NumPadButtons.valueOf(buttonSymbol)) {
-//            NumPadButtons.MINUS, NumPadButtons.MULTIPLY,
-//            NumPadButtons.DIVIDE, NumPadButtons.PLUS -> clickOnOperation(
-//                buttonSymbol
-//            )
-//            NumPadButtons.AC -> clickOnAC()
-//            NumPadButtons.COMMA -> clickOnComma()
-//            NumPadButtons.PLUS_MINUS -> clickOnPlusMinus()
-//            NumPadButtons.PERCENT -> clickOnPercent()
-//            NumPadButtons.EQUALITY -> clickOnEquality()
-//            else -> clickOnDigit(
-//                buttonSymbol
-//            )
-//        }
     }
 
     private fun clickOnDigit(digit: String) {
-        viewModelScope.launch {
-            _padText.value = Result.Success(expression = calculator.clickOnDigit(digit))
-        }
+        _padText.value = Result.Success(expression = calculator.clickOnDigit(digit))
     }
 
-    private fun clickOnOperation(operation: String) {
-        viewModelScope.launch {
-            calculator.clickOnOperation(operation)
-                ?.let {
-                    _padText.value = Result.Success(expression = it)
-                }
-        }
+    private fun clickOnOperation(operation: NumPadButtons) {
+        calculator.clickOnOperation(operation)
+            ?.let {
+                _padText.value = Result.Success(expression = it)
+            }
     }
 
     private fun clickOnAC() {
@@ -84,7 +67,7 @@ class MainViewModel : ViewModel() {
     private fun clickOnPercent() {
         calculator.processingPercent()?.let {
             _padText.value = if (it == DIVIDE_EXCEPTION) {
-                Result.Exception(exception = ArithmeticException("CAN'T DIVIDE"))
+                Result.Exception(exception = CantDivideException(DIVIDE_EXCEPTION_TO_SH0W))
             } else {
                 Result.Success(expression = it)
             }
@@ -94,7 +77,7 @@ class MainViewModel : ViewModel() {
     private fun clickOnEquality() {
         calculator.processingEquality()?.let {
             _padText.value = if (it == DIVIDE_EXCEPTION) {
-                Result.Exception(exception = ArithmeticException("CAN'T DIVIDE"))
+                Result.Exception(exception = CantDivideException(DIVIDE_EXCEPTION_TO_SH0W))
             } else {
                 Result.Success(expression = it)
             }

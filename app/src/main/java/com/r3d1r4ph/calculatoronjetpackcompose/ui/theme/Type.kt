@@ -15,6 +15,7 @@ import com.r3d1r4ph.calculatoronjetpackcompose.R
 val Typography = Typography(
     h1 = TextStyle(
         fontSize = 29.sp,
+        fontStyle = FontStyle.Normal,
         fontWeight = FontWeight.W700,
     ),
     h2 = TextStyle(
@@ -34,7 +35,7 @@ val Typography = Typography(
                 FontWeight.Normal
             )
         ),
-        fontSize = 60.sp,
+        fontSize = 50.sp,
         textAlign = TextAlign.End
     )
     /* Other default text styles to override

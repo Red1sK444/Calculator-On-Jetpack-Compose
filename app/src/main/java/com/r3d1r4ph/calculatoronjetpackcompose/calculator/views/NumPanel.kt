@@ -57,7 +57,8 @@ fun NumPanel(numPanelLiveData: LiveData<Result>) {
                 style = MaterialTheme.typography.body2
             )
 
-            val textResult by numPanelLiveData.observeAsState(initial = Result.Success("0"))
+            val textResult by numPanelLiveData.observeAsState(initial = Result.Success(
+                stringResource(id = R.string.zero)))
 
             Text(
                 text = when (textResult) {

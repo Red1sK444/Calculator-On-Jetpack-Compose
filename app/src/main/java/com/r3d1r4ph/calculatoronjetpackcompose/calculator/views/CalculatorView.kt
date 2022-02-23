@@ -7,11 +7,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.LiveData
+import com.r3d1r4ph.calculatoronjetpackcompose.calculator.models.NumPadButtons
 import com.r3d1r4ph.calculatoronjetpackcompose.ui.theme.components.Label
 import com.r3d1r4ph.calculatoronjetpackcompose.utils.Result
 
 @Composable
-fun CalculatorView(numPanelLiveData: LiveData<Result>, numPadOnClick: (String) -> Unit) {
+fun CalculatorView(numPanelLiveData: LiveData<Result>, numPadOnClick: (NumPadButtons) -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxSize()

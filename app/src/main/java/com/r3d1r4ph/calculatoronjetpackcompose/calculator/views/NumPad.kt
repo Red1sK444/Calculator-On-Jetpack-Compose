@@ -5,58 +5,56 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
-import com.r3d1r4ph.calculatoronjetpackcompose.R
-import com.r3d1r4ph.calculatoronjetpackcompose.calculator.models.NumPadButton
+import com.r3d1r4ph.calculatoronjetpackcompose.calculator.models.NumPadButtons
 
 @Composable
-fun NumPad(onClick: (String) -> Unit) {
+fun NumPad(onClick: (NumPadButtons) -> Unit) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.SpaceEvenly
     ) {
 
         ButtonRowHolder(
-            symbol1 = stringResource(id = R.string.ac),
-            symbol2 = "+/-",
-            symbol3 = "%",
-            symbol4 = "÷",
+            symbol1 = NumPadButtons.AC,
+            symbol2 = NumPadButtons.PLUS_MINUS,
+            symbol3 = NumPadButtons.PERCENT,
+            symbol4 = NumPadButtons.DIVIDE,
             isFirstButtonWide = false,
             onClick = onClick
         )
 
         ButtonRowHolder(
-            symbol1 = "7",
-            symbol2 = "8",
-            symbol3 = "9",
-            symbol4 = "X",
+            symbol1 = NumPadButtons.SEVEN,
+            symbol2 = NumPadButtons.EIGHT,
+            symbol3 = NumPadButtons.NINE,
+            symbol4 = NumPadButtons.MULTIPLY,
             isFirstButtonWide = false,
             onClick = onClick
         )
 
         ButtonRowHolder(
-            symbol1 = "4",
-            symbol2 = "5",
-            symbol3 = "6",
-            symbol4 = "-",
+            symbol1 = NumPadButtons.FOUR,
+            symbol2 = NumPadButtons.FIVE,
+            symbol3 = NumPadButtons.SIX,
+            symbol4 = NumPadButtons.MINUS,
             isFirstButtonWide = false,
             onClick = onClick
         )
 
         ButtonRowHolder(
-            symbol1 = "1",
-            symbol2 = "2",
-            symbol3 = "3",
-            symbol4 = "+",
+            symbol1 = NumPadButtons.ONE,
+            symbol2 = NumPadButtons.TWO,
+            symbol3 = NumPadButtons.THREE,
+            symbol4 = NumPadButtons.PLUS,
             isFirstButtonWide = false,
             onClick = onClick
         )
 
         ButtonRowHolder(
-            symbol1 = "0",
-            symbol2 = stringResource(id = R.string.empty),
-            symbol3 = ",",
-            symbol4 = "=",
+            symbol1 = NumPadButtons.ZERO,
+            symbol2 = NumPadButtons.EMPTY,
+            symbol3 = NumPadButtons.COMMA,
+            symbol4 = NumPadButtons.EQUALITY,
             isFirstButtonWide = true,
             onClick = onClick
         )

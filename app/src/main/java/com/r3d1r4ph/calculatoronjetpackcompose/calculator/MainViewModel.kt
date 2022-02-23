@@ -1,11 +1,10 @@
 package com.r3d1r4ph.calculatoronjetpackcompose.calculator
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.r3d1r4ph.calculatoronjetpackcompose.model.CalculatorProcessing
 import com.r3d1r4ph.calculatoronjetpackcompose.calculator.models.NumPadButtons
+import com.r3d1r4ph.calculatoronjetpackcompose.model.CalculatorProcessing
 import com.r3d1r4ph.calculatoronjetpackcompose.utils.CantDivideException
 import com.r3d1r4ph.calculatoronjetpackcompose.utils.Result
 

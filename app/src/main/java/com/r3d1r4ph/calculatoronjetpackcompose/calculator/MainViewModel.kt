@@ -3,6 +3,7 @@ package com.r3d1r4ph.calculatoronjetpackcompose.calculator
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.r3d1r4ph.calculatoronjetpackcompose.R
 import com.r3d1r4ph.calculatoronjetpackcompose.calculator.models.NumPadButtons
 import com.r3d1r4ph.calculatoronjetpackcompose.model.CalculatorProcessing
 import com.r3d1r4ph.calculatoronjetpackcompose.utils.CantDivideException
@@ -12,7 +13,6 @@ class MainViewModel : ViewModel() {
 
     companion object {
         private const val DIVIDE_EXCEPTION = "=/0"
-        private const val DIVIDE_EXCEPTION_TO_SH0W = "CAN'T DIVIDE"
     }
 
     private val calculator = CalculatorProcessing()
@@ -66,7 +66,7 @@ class MainViewModel : ViewModel() {
     private fun clickOnPercent() {
         calculator.processingPercent()?.let {
             _padText.value = if (it == DIVIDE_EXCEPTION) {
-                Result.Exception(exception = CantDivideException(DIVIDE_EXCEPTION_TO_SH0W))
+                Result.Exception(exception = CantDivideException(R.string.divide_exception))
             } else {
                 Result.Success(expression = it)
             }
@@ -76,7 +76,7 @@ class MainViewModel : ViewModel() {
     private fun clickOnEquality() {
         calculator.processingEquality()?.let {
             _padText.value = if (it == DIVIDE_EXCEPTION) {
-                Result.Exception(exception = CantDivideException(DIVIDE_EXCEPTION_TO_SH0W))
+                Result.Exception(exception = CantDivideException(R.string.divide_exception))
             } else {
                 Result.Success(expression = it)
             }

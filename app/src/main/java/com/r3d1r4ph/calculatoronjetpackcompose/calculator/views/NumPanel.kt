@@ -23,7 +23,6 @@ import com.gandiva.neumorphic.neu
 import com.gandiva.neumorphic.shape.RoundedCorner
 import com.r3d1r4ph.calculatoronjetpackcompose.R
 import com.r3d1r4ph.calculatoronjetpackcompose.utils.Result
-import com.r3d1r4ph.calculatoronjetpackcompose.utils.extract
 
 @Composable
 fun NumPanel(numPanelLiveData: LiveData<Result>) {
@@ -65,8 +64,8 @@ fun NumPanel(numPanelLiveData: LiveData<Result>) {
 
             Text(
                 text = when (textResult) {
-                    is Result.Success -> textResult.extract().toString()
-                    is Result.Exception -> textResult.extract().toString()
+                    is Result.Success -> (textResult as Result.Success).expression
+                    is Result.Exception -> stringResource(id = (textResult as Result.Exception).exception.message)
                 },
                 color = when (textResult) {
                     is Result.Success -> MaterialTheme.colors.secondary

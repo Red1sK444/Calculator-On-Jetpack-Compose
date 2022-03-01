@@ -4,9 +4,3 @@ sealed class Result {
     data class Success(val expression: String) : Result()
     data class Exception(val exception: CantDivideException) : Result()
 }
-
-fun Result.extract() =
-    when (this) {
-        is Result.Success -> expression
-        is Result.Exception -> exception.message
-    }

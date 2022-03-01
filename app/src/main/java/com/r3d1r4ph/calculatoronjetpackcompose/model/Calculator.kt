@@ -118,7 +118,7 @@ class CalculatorProcessing {
 
     private fun commaInput(num: String): String {
         var number = num
-        if (number.isNotEmpty() && !(number.length == 1 && number == MINUS.value.toString())) {
+        if (number.isNotEmpty() && !(number.length == 1 && number == MINUS.value)) {
             if (!number.contains(COMMA.value)) {
                 number += COMMA.value
             }

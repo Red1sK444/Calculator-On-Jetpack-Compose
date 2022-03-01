@@ -1,26 +1,19 @@
 package com.r3d1r4ph.calculatoronjetpackcompose.model
 
 import com.r3d1r4ph.calculatoronjetpackcompose.calculator.models.NumPadButtons
+import com.r3d1r4ph.calculatoronjetpackcompose.model.Constants.*
 
 class CalculatorProcessing {
     private companion object {
         const val DISPLAY_NUMBERS_COUNT = 10
         const val DISPLAY_ADD_NUMBER = DISPLAY_NUMBERS_COUNT - 2
         const val DISPLAY_CONCLUSION = DISPLAY_NUMBERS_COUNT - 3
-        const val DOT = '.'
-        const val COMMA = ','
-        const val E = 'E'
-        const val MINUS = '-'
-        const val ZERO = '0'
-        const val DIVIDE_EXCEPTION = "/0"
-        const val EQUALITY = '='
-        const val EMPTY = ""
     }
 
-    private var first = EMPTY
-    private var last = EMPTY
+    private var first = EMPTY.value
+    private var last = EMPTY.value
     private var operation: Operations? = null
-    private var afterOp = EMPTY
+    private var afterOp = EMPTY.value
     private var newCircle = true
     // - Эта переменная принимает значение false только после операций
     // - "%" и "=". Это значит, что мы можем взять его как первое
@@ -30,20 +23,20 @@ class CalculatorProcessing {
     // - Вводить первое число, то переменная снова принимает значение true)
 
     private fun pointToComma(number: String): String {
-        return if (number.contains(DOT)) {
-            number.replace(DOT, COMMA)
+        return if (number.contains(DOT.value)) {
+            number.replace(DOT.value, COMMA.value)
         } else number
     }
 
     private fun commaToPoint(number: String): String {
-        return if (number.contains(COMMA)) {
-            number.replace(COMMA, DOT)
+        return if (number.contains(COMMA.value)) {
+            number.replace(COMMA.value, DOT.value)
         } else number
     }
 
     private fun firstCheck(): String {
         return if (first.length > DISPLAY_NUMBERS_COUNT) {
-            "$DOT$DOT${first.substring(first.length - DISPLAY_ADD_NUMBER, first.length)}"
+            "${DOT.value}${DOT.value}${first.substring(first.length - DISPLAY_ADD_NUMBER, first.length)}"
         } else {
             first
         }
@@ -51,7 +44,7 @@ class CalculatorProcessing {
 
     private fun lastCheck(): String {
         return if (afterOp.length + last.length > DISPLAY_NUMBERS_COUNT) {
-            "$DOT$DOT${
+            "${DOT.value}${DOT.value}${
                 (afterOp + last).substring(
                     (afterOp + last).length - DISPLAY_ADD_NUMBER,
                     (afterOp + last).length
@@ -66,7 +59,7 @@ class CalculatorProcessing {
         return if (operation == null) {
             if (!newCircle) {
                 newCircle = true
-                first = EMPTY
+                first = EMPTY.value
             }
 
             first = addNumberCheck(first, num)
@@ -78,9 +71,9 @@ class CalculatorProcessing {
     }
 
     private fun addNumberCheck(oldNumber: String, newSymbol: String) =
-        if (oldNumber == ZERO.toString()) {
+        if (oldNumber == ZERO.value) {
             newSymbol
-        } else if (!(oldNumber == MINUS.toString() && newSymbol == ZERO.toString())) {
+        } else if (!(oldNumber == MINUS.value && newSymbol == ZERO.value)) {
             oldNumber + newSymbol
         } else {
             oldNumber
@@ -91,7 +84,7 @@ class CalculatorProcessing {
     }
 
     private fun operationProcessing(oper: NumPadButtons): String? {
-        if (first.isNotEmpty() && first != MINUS.toString() && last.isEmpty()) {
+        if (first.isNotEmpty() && first != MINUS.value && last.isEmpty()) {
             operation = when (oper) {
                 NumPadButtons.MULTIPLY -> Operations.MULTIPLICATION
                 NumPadButtons.DIVIDE -> Operations.DIVIDE
@@ -115,22 +108,22 @@ class CalculatorProcessing {
     }
 
     fun processingAC(): String {
-        first = EMPTY
-        last = EMPTY
-        afterOp = EMPTY
+        first = EMPTY.value
+        last = EMPTY.value
+        afterOp = EMPTY.value
         operation = null
         newCircle = true
-        return ZERO.toString()
+        return ZERO.value
     }
 
     private fun commaInput(num: String): String {
         var number = num
-        if (number.isNotEmpty() && !(number.length == 1 && number == MINUS.toString())) {
-            if (!number.contains(COMMA)) {
-                number += COMMA
+        if (number.isNotEmpty() && !(number.length == 1 && number == MINUS.value.toString())) {
+            if (!number.contains(COMMA.value)) {
+                number += COMMA.value
             }
         } else {
-            number += "$ZERO$COMMA"
+            number += "${ZERO.value}${COMMA.value}"
         }
         return number
     }
@@ -151,20 +144,20 @@ class CalculatorProcessing {
     private fun processPlusMinus(num: String, check: Boolean): String {
         var number = num
         if (number.isNotEmpty()) {
-            if (number.contains(MINUS)) {
+            if (number.contains(MINUS.value)) {
                 number = number.drop(1)
                 if (check && number.isEmpty()) {
-                    number = ZERO.toString()
+                    number = ZERO.value
                 }
             } else {
-                if (number != ZERO.toString()) {
-                    number = "$MINUS$number"
+                if (number != ZERO.value) {
+                    number = "${MINUS.value}$number"
                 } else if (check) {
-                    number = MINUS.toString()
+                    number = MINUS.value
                 }
             }
         } else {
-            number = MINUS.toString()
+            number = MINUS.value
         }
         return number
     }
@@ -183,8 +176,8 @@ class CalculatorProcessing {
     private fun processingConclusion(concl: String, l: Double): String {
         val padText: String
         var conclusion = concl
-        if (conclusion[conclusion.length - 1] == ZERO
-            && conclusion[conclusion.length - 2] == DOT
+        if (conclusion[conclusion.length - 1].toString() == ZERO.value
+            && conclusion[conclusion.length - 2].toString() == DOT.value
         ) {
             conclusion = conclusion.substring(0, conclusion.length - 2)
         }
@@ -195,49 +188,49 @@ class CalculatorProcessing {
             first = pointToComma(conclusion)
             newCircle = false
         } else {
-            first = EMPTY
+            first = EMPTY.value
             newCircle = true
         }
-        last = EMPTY
-        afterOp = EMPTY
+        last = EMPTY.value
+        afterOp = EMPTY.value
         operation = null
         return padText
     }
 
     private fun padTextFromConclusion(conclusion: String) =
-        if (conclusion != "$MINUS$ZERO") {
+        if (conclusion != "${MINUS.value}${ZERO.value}") {
             if (conclusion.length > DISPLAY_NUMBERS_COUNT) {
-                if (conclusion.contains(E)) {
+                if (conclusion.contains(E.value)) {
 
-                    val indOfE = conclusion.indexOf(E)
+                    val indOfE = conclusion.indexOf(E.value)
                     val partE = conclusion.substring(indOfE)
                     val partELength = partE.length
 
                     val firstPartOfPad = conclusion.substring(0, DISPLAY_CONCLUSION - partELength)
-                    "$EQUALITY${pointToComma(firstPartOfPad)}$DOT$DOT$partE"
+                    "${EQUALITY.value}${pointToComma(firstPartOfPad)}${DOT.value}${DOT.value}$partE"
                 } else {
-                    "$EQUALITY${pointToComma(conclusion.substring(0, DISPLAY_CONCLUSION))}$DOT$DOT"
+                    "${EQUALITY.value}${pointToComma(conclusion.substring(0, DISPLAY_CONCLUSION))}${DOT.value}${DOT.value}"
                 }
             } else {
-                "$EQUALITY${pointToComma(conclusion)}"
+                "${EQUALITY.value}${pointToComma(conclusion)}"
             }
         } else {
-            "$EQUALITY$ZERO"
+            "${EQUALITY.value}${ZERO.value}"
         }
 
     private fun preCounting(): Int {
         var toMultiplicate = 1
         if (operation == Operations.MULTIPLICATION || operation == Operations.DIVIDE) {
-            if (first.contains(MINUS)) {
+            if (first.contains(MINUS.value)) {
                 toMultiplicate *= -1
                 first = first.drop(1)
             }
-            if (last.contains(MINUS)) {
+            if (last.contains(MINUS.value)) {
                 toMultiplicate *= -1
                 last = last.drop(1)
             }
         } else {
-            if (last.contains(MINUS)) {
+            if (last.contains(MINUS.value)) {
                 last = last.drop(1)
                 when (operation) {
                     Operations.PLUS -> operation = Operations.MINUS
@@ -251,7 +244,7 @@ class CalculatorProcessing {
     }
 
     fun processingPercent(): String? {
-        if (last.isNotEmpty() && last != MINUS.toString()) {
+        if (last.isNotEmpty() && last != MINUS.value) {
 
             val toMultiplicate = preCounting()
 
@@ -264,7 +257,7 @@ class CalculatorProcessing {
                 l = l / 100 * f
             }
 
-            var conclusion = EMPTY
+            var conclusion = EMPTY.value
             when (operation) {
                 Operations.PLUS -> {
                     conclusion = ((f + l) * toMultiplicate).toString()
@@ -277,7 +270,7 @@ class CalculatorProcessing {
                 }
                 Operations.DIVIDE -> {
                     conclusion = if (l == 0.0) {
-                        DIVIDE_EXCEPTION
+                        DIVIDE_EXCEPTION.value
                     } else {
                         ((f / l) * toMultiplicate).toString()
                     }
@@ -291,14 +284,14 @@ class CalculatorProcessing {
     }
 
     fun processingEquality(): String? {
-        if (last.isNotEmpty() && last != MINUS.toString()) {
+        if (last.isNotEmpty() && last != MINUS.value) {
 
             first = commaToPoint(first)
             last = commaToPoint(last)
 
             val f: Double = first.toDouble()
             val l: Double = last.toDouble()
-            var conclusion = EMPTY
+            var conclusion = EMPTY.value
 
             when (operation) {
                 Operations.PLUS -> conclusion = (f + l).toString()
@@ -306,7 +299,7 @@ class CalculatorProcessing {
                 Operations.MULTIPLICATION -> conclusion = (f * l).toString()
                 Operations.DIVIDE -> {
                     conclusion = if (l == 0.0) {
-                        DIVIDE_EXCEPTION
+                        DIVIDE_EXCEPTION.value
                     } else {
                         (f / l).toString()
                     }

@@ -34,7 +34,41 @@ fun CalculatorView(numPanelLiveData: LiveData<Result>, numPadOnClick: (NumPadBut
             Spacer(
                 modifier = Modifier.height(10.dp)
             )
-            NumPad(numPadOnClick)
+            NumPad(
+                numPadButtons = listOf(
+                    listOf(
+                        NumPadButtons.AC,
+                        NumPadButtons.PLUS_MINUS,
+                        NumPadButtons.PERCENT,
+                        NumPadButtons.DIVIDE
+                    ),
+                    listOf(
+                        NumPadButtons.SEVEN,
+                        NumPadButtons.EIGHT,
+                        NumPadButtons.NINE,
+                        NumPadButtons.MULTIPLY
+                    ),
+                    listOf(
+                        NumPadButtons.FOUR,
+                        NumPadButtons.FIVE,
+                        NumPadButtons.SIX,
+                        NumPadButtons.MINUS
+                    ),
+                    listOf(
+                        NumPadButtons.ONE,
+                        NumPadButtons.TWO,
+                        NumPadButtons.THREE,
+                        NumPadButtons.PLUS
+                    ),
+                    listOf(
+                        NumPadButtons.ZERO,
+                        NumPadButtons.EMPTY,
+                        NumPadButtons.COMMA,
+                        NumPadButtons.EQUALITY
+                    )
+                ),
+                onClick = numPadOnClick
+            )
         }
     }
 }

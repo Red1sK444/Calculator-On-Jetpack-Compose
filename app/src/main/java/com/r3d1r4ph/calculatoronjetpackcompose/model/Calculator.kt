@@ -36,7 +36,12 @@ class CalculatorProcessing {
 
     private fun firstCheck(): String {
         return if (first.length > DISPLAY_NUMBERS_COUNT) {
-            "${DOT.value}${DOT.value}${first.substring(first.length - DISPLAY_ADD_NUMBER, first.length)}"
+            "${DOT.value}${DOT.value}${
+                first.substring(
+                    first.length - DISPLAY_ADD_NUMBER,
+                    first.length
+                )
+            }"
         } else {
             first
         }
@@ -209,7 +214,14 @@ class CalculatorProcessing {
                     val firstPartOfPad = conclusion.substring(0, DISPLAY_CONCLUSION - partELength)
                     "${EQUALITY.value}${pointToComma(firstPartOfPad)}${DOT.value}${DOT.value}$partE"
                 } else {
-                    "${EQUALITY.value}${pointToComma(conclusion.substring(0, DISPLAY_CONCLUSION))}${DOT.value}${DOT.value}"
+                    "${EQUALITY.value}${
+                        pointToComma(
+                            conclusion.substring(
+                                0,
+                                DISPLAY_CONCLUSION
+                            )
+                        )
+                    }${DOT.value}${DOT.value}"
                 }
             } else {
                 "${EQUALITY.value}${pointToComma(conclusion)}"
@@ -257,31 +269,38 @@ class CalculatorProcessing {
                 l = l / 100 * f
             }
 
-            var conclusion = EMPTY.value
-            when (operation) {
-                Operations.PLUS -> {
-                    conclusion = ((f + l) * toMultiplicate).toString()
-                }
-                Operations.MINUS -> {
-                    conclusion = ((f - l) * toMultiplicate).toString()
-                }
-                Operations.MULTIPLICATION -> {
-                    conclusion = ((f * l) * toMultiplicate).toString()
-                }
-                Operations.DIVIDE -> {
-                    conclusion = if (l == 0.0) {
-                        DIVIDE_EXCEPTION.value
-                    } else {
-                        ((f / l) * toMultiplicate).toString()
-                    }
-                }
-                else -> {}
-            }
+            val conclusion = getConclusionByOperation(operation, f, l, toMultiplicate)
 
             return processingConclusion(conclusion, l)
         }
         return null
     }
+
+    private fun getConclusionByOperation(
+        operation: Operations?,
+        f: Double,
+        l: Double,
+        toMultiplicate: Int
+    ) =
+        when (operation) {
+            Operations.PLUS -> {
+                ((f + l) * toMultiplicate).toString()
+            }
+            Operations.MINUS -> {
+                ((f - l) * toMultiplicate).toString()
+            }
+            Operations.MULTIPLICATION -> {
+                ((f * l) * toMultiplicate).toString()
+            }
+            Operations.DIVIDE -> {
+                if (l == 0.0) {
+                    DIVIDE_EXCEPTION.value
+                } else {
+                    ((f / l) * toMultiplicate).toString()
+                }
+            }
+            else -> EMPTY.value
+        }
 
     fun processingEquality(): String? {
         if (last.isNotEmpty() && last != MINUS.value) {
